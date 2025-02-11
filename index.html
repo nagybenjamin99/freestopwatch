@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Stopwatch - Free & Simple Timer</title>
+    <meta name="description" content="Use our free online stopwatch to track time easily. Perfect for workouts, studying, cooking, and more!">
+    <meta name="keywords" content="stopwatch, online timer, free stopwatch, lap timer, countdown">
+    <meta name="author" content="Your Name">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Online Stopwatch - Free & Simple Timer">
+    <meta property="og:description" content="Track time with ease using our free online stopwatch.">
+    <meta property="og:image" content="https://yourwebsite.com/stopwatch-preview.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <link rel="canonical" href="https://yourwebsite.com">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+            position: relative;
+        }
+        .time {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .buttons button {
+            font-size: 18px;
+            margin: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #f39c12;
+            color: white;
+        }
+        .buttons button:hover {
+            background-color: #e67e22;
+        }
+        .laps {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .ad-container {
+            background-color: #444;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .ad-left {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+        .ad-right {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+        .ad-bottom {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Online Stopwatch - Track Your Time Easily! 🚀</h1>
+        <div class="ad-container ad-left">Ad Placeholder (Left)</div>
+        <div class="time" id="display">00:00:00</div>
+        <div class="buttons">
+            <button onclick="startTimer()">▶ Start</button>
+            <button onclick="stopTimer()">⏸ Stop</button>
+            <button onclick="resetTimer()">🔄 Reset</button>
+            <button onclick="recordLap()">🏁 Lap</button>
+        </div>
+        <div class="ad-container ad-right">Ad Placeholder (Right)</div>
+        <div class="laps" id="laps"></div>
+        <div class="ad-container ad-bottom">Ad Placeholder (Bottom)</div>
+    </div>
+    <script>
+        let timer;
+        let startTime;
+        let elapsedTime = 0;
+        let running = false;
+
+        function startTimer() {
+            if (!running) {
+                startTime = Date.now() - elapsedTime;
+                timer = setInterval(updateTime, 1000);
+                running = true;
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            running = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            elapsedTime = 0;
+            document.getElementById("display").innerText = "00:00:00";
+            document.getElementById("laps").innerHTML = "";
+            running = false;
+        }
+
+        function updateTime() {
+            elapsedTime = Date.now() - startTime;
+            let totalSeconds = Math.floor(elapsedTime / 1000);
+            let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            let seconds = String(totalSeconds % 60).padStart(2, '0');
+            document.getElementById("display").innerText = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function recordLap() {
+            let lapTime = document.getElementById("display").innerText;
+            let lapItem = document.createElement("div");
+            lapItem.innerText = `Lap: ${lapTime}`;
+            document.getElementById("laps").appendChild(lapItem);
+        }
+    </script>
+</body>
+</html>
